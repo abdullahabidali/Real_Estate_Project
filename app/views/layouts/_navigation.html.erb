@@ -1,0 +1,27 @@
+<nav class="bg-blue-600 shadow-lg">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <div class="flex-shrink-0 flex items-center">
+          <%= link_to root_path, class: "text-white text-xl font-bold" do %>
+            LevareEstates
+          <% end %>
+        </div>
+        <div class="hidden md:ml-6 md:inline-flex md:space-x-2">
+        <%= link_to "Home", root_path, class: "bg-white text-blue-600 hover:bg-blue-100 px-4 py-2 rounded font-semibold shadow transition w-auto inline-block" %>
+
+        <%= link_to "Properties", properties_path, class: "bg-white text-blue-600 hover:bg-blue-100 px-4 py-2 rounded font-semibold shadow transition w-auto inline-block ml-2" %>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <% if user_signed_in? %>
+          <%= link_to "My Profile", profile_path, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium" %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "bg-white text-blue-600 hover:bg-blue-100 px-4 py-2 rounded font-semibold shadow transition w-auto inline-block" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "bg-white text-blue-600 hover:bg-blue-100 px-4 py-2 rounded font-semibold shadow transition w-auto inline-block ml-2" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav> 

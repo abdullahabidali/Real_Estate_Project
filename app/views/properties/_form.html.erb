@@ -1,0 +1,104 @@
+<%= form_with(model: property, class: "space-y-6") do |form| %>
+  <% if property.errors.any? %>
+    <div class="bg-red-50 p-4 rounded-lg mb-6">
+      <h2 class="text-red-800 font-semibold mb-2">
+        <%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:
+      </h2>
+      <ul class="list-disc list-inside text-red-600">
+        <% property.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :property_type, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :property_type, 
+          options_for_select([['House', 'house'], ['Apartment', 'apartment'], ['Condo', 'condo'], 
+                            ['Townhouse', 'townhouse'], ['Land', 'land'], ['Commercial', 'commercial']], 
+                            property.property_type), 
+          {}, 
+          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :price, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :price, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :status, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.select :status, 
+          options_for_select([['Available', 'available'], ['Sold', 'sold'], ['Pending', 'pending']], 
+                            property.status), 
+          {}, 
+          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :bedrooms, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :bedrooms, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :bathrooms, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :bathrooms, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :area, "Area (sq ft)", class: "block text-sm font-medium text-gray-700" %>
+      <%= form.number_field :area, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :address, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :address, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :city, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :city, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :state, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :state, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= form.label :zip_code, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.text_field :zip_code, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :images, "Property Images", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.file_field :images, multiple: true, direct_upload: true, class: "block w-full text-sm text-gray-500" %>
+    <% if @property.images.attached? %>
+      <div class="flex flex-wrap mt-2">
+        <% @property.images.each do |image| %>
+          <div class="mr-2 mb-2">
+            <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "rounded border" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex justify-end space-x-4">
+    <%= link_to "Cancel", properties_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    <%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %> 

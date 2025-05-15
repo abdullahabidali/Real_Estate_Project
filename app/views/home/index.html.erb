@@ -1,0 +1,194 @@
+<!-- Creative About LevareEstates Section -->
+<div class="max-w-5xl mx-auto mt-12 mb-16 rounded-2xl shadow-2xl border-2 border-blue-200 bg-gradient-to-r from-blue-50 via-white to-blue-100 p-10 flex flex-col md:flex-row items-center">
+  <!-- Icon/Illustration -->
+  <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-10 flex items-center justify-center">
+    <div class="bg-blue-100 rounded-full p-6 shadow-lg">
+      <svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" />
+      </svg>
+    </div>
+  </div>
+  <!-- Text Content -->
+  <div class="flex-1">
+    <h2 class="text-4xl font-extrabold mb-4 text-blue-800 drop-shadow-lg">
+      About <span class="text-blue-500">LevareEstates</span>
+    </h2>
+    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+      <span class="font-semibold text-blue-600">LevareEstates</span> is your trusted partner in <span class="font-semibold text-blue-600">finding, buying, or renting</span> the perfect property. Our platform connects buyers, renters, and property owners with <span class="font-semibold text-blue-600">ease, transparency, and security</span>. Whether you're searching for your first home, a luxury apartment, or a commercial space, LevareEstates offers a <span class="font-semibold text-blue-600">seamless experience</span> tailored to your needs.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex items-center space-x-3">
+        <span class="text-blue-500 text-2xl">🔎</span>
+        <span class="text-gray-800 font-medium">Advanced property search & filtering</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="text-blue-500 text-2xl">💬</span>
+        <span class="text-gray-800 font-medium">Direct messaging with owners & agents</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="text-blue-500 text-2xl">⭐</span>
+        <span class="text-gray-800 font-medium">Favorites & personalized recommendations</span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="text-blue-500 text-2xl">🔒</span>
+        <span class="text-gray-800 font-medium">Secure & user-friendly platform</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Creative Building Image Divider with Text -->
+<div class="w-full flex justify-center my-8">
+  <div class="relative w-full max-w-5xl rounded-2xl shadow-lg overflow-hidden">
+    <!-- Building Image Strip -->
+    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80"
+         alt="Modern Buildings" class="w-full h-40 object-cover" />
+    <!-- Gradient Overlay for blending -->
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-100/80 via-white/0 to-purple-100/80"></div>
+    <!-- Optional: Decorative SVG or icon overlay -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+      <svg class="w-24 h-24 opacity-10 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <rect x="4" y="8" width="4" height="8" rx="1" class="text-blue-400" fill="currentColor"/>
+        <rect x="10" y="4" width="4" height="12" rx="1" class="text-purple-400" fill="currentColor"/>
+        <rect x="16" y="10" width="4" height="6" rx="1" class="text-blue-300" fill="currentColor"/>
+      </svg>
+      <span class="text-white text-xl font-bold drop-shadow-lg">Discover Modern Living Spaces</span>
+    </div>
+  </div>
+</div>
+
+<!-- Find Your Dream Property Section with Background Image -->
+<div class="relative w-full min-h-[400px] flex items-center justify-center mb-16">
+  <!-- Background Image -->
+  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
+       alt="Modern Home" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+  <!-- Overlay for readability -->
+  <div class="absolute inset-0 bg-gradient-to-b from-blue-100/80 via-white/60 to-blue-100/80"></div>
+
+  <!-- Find Your Dream Property Container -->
+  <div class="relative z-10 max-w-5xl w-full mx-auto rounded-2xl shadow-2xl border-2 border-purple-200 bg-gradient-to-r from-blue-100 via-white to-purple-100 p-10">
+    <h1 class="text-3xl font-extrabold mb-8 text-purple-800 drop-shadow-lg flex items-center">
+      <span class="mr-3">Find Your Dream Property</span>
+      <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l2 2 4-4" />
+      </svg>
+    </h1>
+    <%= form_tag properties_path, method: :get, class: "grid grid-cols-1 md:grid-cols-4 gap-4" do %>
+      <div>
+        <%= label_tag :property_type, "Property Type", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= select_tag :property_type,
+            options_for_select([['All Types', ''], ['House', 'house'], ['Apartment', 'apartment'],
+                              ['Condo', 'condo'], ['Townhouse', 'townhouse'], ['Land', 'land'],
+                              ['Commercial', 'commercial']], params[:property_type]),
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div>
+        <%= label_tag :city, "City", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= text_field_tag :city, params[:city],
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
+            placeholder: "Enter city name" %>
+      </div>
+      <div>
+        <%= label_tag :min_price, "Min Price", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= number_field_tag :min_price, params[:min_price],
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
+            placeholder: "Min price" %>
+      </div>
+      <div>
+        <%= label_tag :max_price, "Max Price", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= number_field_tag :max_price, params[:max_price],
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
+            placeholder: "Max price" %>
+      </div>
+      <div>
+        <%= label_tag :bedrooms, "Bedrooms", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= number_field_tag :bedrooms, params[:bedrooms],
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
+            placeholder: "Any" %>
+      </div>
+      <div>
+        <%= label_tag :bathrooms, "Bathrooms", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= number_field_tag :bathrooms, params[:bathrooms],
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
+            placeholder: "Any" %>
+      </div>
+      <div>
+        <%= label_tag :status, "Status", class: "block text-purple-700 text-sm font-bold mb-2" %>
+        <%= select_tag :status,
+            options_for_select([['All', ''], ['Available', 'available'], ['Sold', 'sold'], ['Pending', 'pending']], params[:status]),
+            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="flex items-end space-x-2 mt-6">
+        <%= submit_tag "Search", class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link_to "Clear Filters", properties_path, class: "ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Divider -->
+<div class="max-w-4xl mx-auto my-8 border-t-2 border-blue-100"></div>
+
+<!-- Hero Banner -->
+<div class="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
+  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
+       alt="Cityscape" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-400/80 via-purple-400/60 to-blue-200/80"></div>
+  <div class="relative z-10 text-center px-4">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg mb-4">Find Your Dream Home</h1>
+    <p class="text-xl md:text-2xl text-white drop-shadow mb-8">Discover the perfect property that matches your lifestyle</p>
+    <%= link_to "Explore Properties", properties_path, class: "bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-full text-lg font-semibold shadow-lg transition" %>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="max-w-7xl mx-auto px-4 py-16">
+  <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="text-center p-6 rounded-xl bg-white shadow-lg">
+      <div class="text-4xl mb-4">🏠</div>
+      <h3 class="text-xl font-semibold mb-2">Wide Selection</h3>
+      <p class="text-gray-600">Browse through thousands of properties across the country</p>
+    </div>
+    <div class="text-center p-6 rounded-xl bg-white shadow-lg">
+      <div class="text-4xl mb-4">🔍</div>
+      <h3 class="text-xl font-semibold mb-2">Smart Search</h3>
+      <p class="text-gray-600">Find exactly what you're looking for with our advanced filters</p>
+    </div>
+    <div class="text-center p-6 rounded-xl bg-white shadow-lg">
+      <div class="text-4xl mb-4">💬</div>
+      <h3 class="text-xl font-semibold mb-2">Direct Contact</h3>
+      <p class="text-gray-600">Connect directly with property owners and agents</p>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Properties Section -->
+<div class="bg-gray-50 py-16">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Featured Properties</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <% @featured_properties&.each do |property| %>
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+          <% if property.images.attached? %>
+            <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+          <% else %>
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
+                 alt="No image" class="w-full h-48 object-cover opacity-80" />
+          <% end %>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
+            <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
+            <p class="text-xl font-bold text-blue-600 mb-4">$<%= number_with_delimiter(property.price) %></p>
+            <%= link_to "View Details", property_path(property), class: "block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="text-center mt-8">
+      <%= link_to "View All Properties", properties_path, class: "inline-block bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition" %>
+    </div>
+  </div>
+</div>
+

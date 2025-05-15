@@ -1,0 +1,50 @@
+<!-- Hero Banner -->
+<div class="relative w-full h-64 mb-12 flex items-center justify-center overflow-hidden rounded-b-3xl shadow-lg">
+  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
+       alt="Cityscape" class="absolute inset-0 w-full h-full object-cover opacity-80" />
+  <div class="absolute inset-0 bg-gradient-to-r from-blue-400/80 via-purple-400/60 to-blue-200/80"></div>
+  <div class="relative z-10 text-center">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-2">Explore Dream Properties</h1>
+    <p class="text-lg md:text-2xl text-white drop-shadow">Find your next home, investment, or adventure</p>
+  </div>
+</div>
+
+<!-- Properties Grid -->
+<div class="max-w-7xl mx-auto px-4 py-10">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <% @properties.each do |property| %>
+      <div class="relative group rounded-3xl shadow-2xl border-4 border-transparent bg-gradient-to-br from-blue-50 via-white to-purple-100 hover:border-purple-400 transition overflow-hidden flex flex-col">
+        <!-- Property Image -->
+        <% if property.images.attached? %>
+          <%= image_tag property.images.first, class: "w-full h-56 object-cover rounded-t-2xl group-hover:scale-105 transition" %>
+        <% else %>
+          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
+               alt="No image" class="w-full h-56 object-cover rounded-t-2xl opacity-80" />
+        <% end %>
+        <!-- Card Content -->
+        <div class="p-6 flex-1 flex flex-col bg-white bg-opacity-90">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-2xl font-bold text-purple-700"><%= property.title %></h2>
+            <% if user_signed_in? %>
+              <% if current_user.favorite_properties.include?(property) %>
+                <%= button_to "♥", unfavorite_property_path(property), method: :delete, class: "text-pink-500 text-2xl bg-white border-none shadow-none hover:text-pink-700 transition" %>
+              <% else %>
+                <%= button_to "♡", favorite_property_path(property), method: :post, class: "text-gray-400 text-2xl bg-white border-none shadow-none hover:text-pink-500 transition" %>
+              <% end %>
+            <% end %>
+          </div>
+          <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
+          <p class="text-xl font-semibold text-blue-700 mb-2">$<%= number_with_delimiter(property.price) %></p>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-semibold"><%= property.property_type.titleize %></span>
+            <span class="text-xs text-gray-500"><%= property.bedrooms %> bd | <%= property.bathrooms %> ba</span>
+          </div>
+          <div class="mt-auto flex items-center justify-between">
+            <%= link_to "View Details", property_path(property), class: "bg-gradient-to-r from-purple-500 to-blue-500 hover:from-blue-500 hover:to-purple-500 text-white font-bold py-2 px-6 rounded-full shadow transition" %>
+            <%= link_to "Contact", new_property_message_path(property), class: "ml-2 bg-white border border-blue-500 text-blue-500 px-4 py-2 rounded-lg hover:bg-blue-50 transition" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

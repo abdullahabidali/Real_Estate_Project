@@ -1,0 +1,55 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">My Dashboard</h1>
+
+  <div class="mb-10">
+    <h2 class="text-2xl font-semibold mb-4">My Properties</h2>
+    <% if @my_properties.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @my_properties.each do |property| %>
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <% if property.images.attached? %>
+              <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+            <% else %>
+              <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                <span class="text-gray-400">No image available</span>
+              </div>
+            <% end %>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
+              <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
+              <%= link_to "View", property_path(property), class: "text-blue-500 hover:underline" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>You have not listed any properties yet.</p>
+    <% end %>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-semibold mb-4">My Favorites</h2>
+    <% if @favorite_properties.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @favorite_properties.each do |property| %>
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <% if property.images.attached? %>
+              <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+            <% else %>
+              <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                <span class="text-gray-400">No image available</span>
+              </div>
+            <% end %>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
+              <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
+              <%= link_to "View", property_path(property), class: "text-blue-500 hover:underline" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>You have not favorited any properties yet.</p>
+    <% end %>
+  </div>
+</div> 
