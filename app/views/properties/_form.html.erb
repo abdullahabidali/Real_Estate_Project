@@ -15,11 +15,13 @@
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
       <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: 5-100 characters</p>
       <%= form.text_field :title, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :property_type, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Select one type</p>
       <%= form.select :property_type, 
           options_for_select([['House', 'house'], ['Apartment', 'apartment'], ['Condo', 'condo'], 
                             ['Townhouse', 'townhouse'], ['Land', 'land'], ['Commercial', 'commercial']], 
@@ -29,12 +31,14 @@
     </div>
 
     <div>
-      <%= form.label :price, class: "block text-sm font-medium text-gray-700" %>
+      <%= form.label :price, "Price (PKR)", class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Must be greater than 0 PKR</p>
       <%= form.number_field :price, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :status, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Select current status</p>
       <%= form.select :status, 
           options_for_select([['Available', 'available'], ['Sold', 'sold'], ['Pending', 'pending']], 
                             property.status), 
@@ -44,51 +48,60 @@
 
     <div>
       <%= form.label :bedrooms, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Must be 0 or greater (whole number)</p>
       <%= form.number_field :bedrooms, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :bathrooms, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Must be 0 or greater (whole number)</p>
       <%= form.number_field :bathrooms, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :area, "Area (sq ft)", class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Must be greater than 0</p>
       <%= form.number_field :area, step: :any, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :address, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Full street address</p>
       <%= form.text_field :address, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :city, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: City name</p>
       <%= form.text_field :city, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :state, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: State name</p>
       <%= form.text_field :state, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
 
     <div>
       <%= form.label :zip_code, class: "block text-sm font-medium text-gray-700" %>
+      <p class="text-xs text-gray-500 mb-1">Required: Format 12345 or 12345-6789</p>
       <%= form.text_field :zip_code, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
     </div>
   </div>
 
   <div>
     <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <p class="text-xs text-gray-500 mb-1">Required: Minimum 20 characters</p>
     <%= form.text_area :description, rows: 4, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
   </div>
 
   <div class="mb-4">
     <%= form.label :images, "Property Images", class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= form.file_field :images, multiple: true, direct_upload: true, class: "block w-full text-sm text-gray-500" %>
-    <% if @property.images.attached? %>
+    <p class="text-xs text-gray-500 mb-1">Required: Upload at least one image</p>
+    <%= form.file_field :images, multiple: true, class: "block w-full text-sm text-gray-500" %>
+    <% if property.images.attached? %>
       <div class="flex flex-wrap mt-2">
-        <% @property.images.each do |image| %>
+        <% property.images.each do |image| %>
           <div class="mr-2 mb-2">
             <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "rounded border" %>
           </div>

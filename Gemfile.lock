@@ -126,6 +126,9 @@ GEM
       responders
       warden (~> 1.2.3)
     dotenv (3.1.8)
+    dotenv-rails (3.1.8)
+      dotenv (= 3.1.8)
+      railties (>= 6.1)
     drb (2.2.1)
     ed25519 (1.4.0)
     erubi (1.13.1)
@@ -149,6 +152,9 @@ GEM
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    geocoder (1.8.5)
+      base64 (>= 0.1.0)
+      csv (>= 3.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     has_scope (0.8.2)
@@ -354,6 +360,7 @@ GEM
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
+    ratyrate (1.2.2.alpha)
     rdoc (6.13.1)
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
@@ -363,6 +370,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
+    rolify (6.0.1)
     rubocop (1.75.5)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -465,6 +473,9 @@ GEM
     unicode-emoji (4.0.4)
     uri (1.0.3)
     useragent (0.16.11)
+    valid_email2 (7.0.13)
+      activemodel (>= 6.0)
+      mail (~> 2.5)
     version_gem (1.1.8)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -500,10 +511,13 @@ DEPENDENCIES
   capybara
   debug
   devise
+  dotenv-rails
+  geocoder
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   kamal
+  kaminari
   letter_opener
   omniauth
   omniauth-github
@@ -512,6 +526,8 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 8.0.1)
+  ratyrate
+  rolify
   rubocop-rails-omakase
   sassc-rails
   selenium-webdriver
@@ -523,6 +539,7 @@ DEPENDENCIES
   thruster
   turbo-rails
   tzinfo-data
+  valid_email2
   web-console
 
 BUNDLED WITH

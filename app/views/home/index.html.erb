@@ -58,77 +58,7 @@
 </div>
 
 <!-- Find Your Dream Property Section with Background Image -->
-<div class="relative w-full min-h-[400px] flex items-center justify-center mb-16">
-  <!-- Background Image -->
-  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80"
-       alt="Modern Home" class="absolute inset-0 w-full h-full object-cover opacity-80" />
-  <!-- Overlay for readability -->
-  <div class="absolute inset-0 bg-gradient-to-b from-blue-100/80 via-white/60 to-blue-100/80"></div>
-
-  <!-- Find Your Dream Property Container -->
-  <div class="relative z-10 max-w-5xl w-full mx-auto rounded-2xl shadow-2xl border-2 border-purple-200 bg-gradient-to-r from-blue-100 via-white to-purple-100 p-10">
-    <h1 class="text-3xl font-extrabold mb-8 text-purple-800 drop-shadow-lg flex items-center">
-      <span class="mr-3">Find Your Dream Property</span>
-      <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12l2 2 4-4" />
-      </svg>
-    </h1>
-    <%= form_tag properties_path, method: :get, class: "grid grid-cols-1 md:grid-cols-4 gap-4" do %>
-      <div>
-        <%= label_tag :property_type, "Property Type", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= select_tag :property_type,
-            options_for_select([['All Types', ''], ['House', 'house'], ['Apartment', 'apartment'],
-                              ['Condo', 'condo'], ['Townhouse', 'townhouse'], ['Land', 'land'],
-                              ['Commercial', 'commercial']], params[:property_type]),
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-      <div>
-        <%= label_tag :city, "City", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= text_field_tag :city, params[:city],
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
-            placeholder: "Enter city name" %>
-      </div>
-      <div>
-        <%= label_tag :min_price, "Min Price", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= number_field_tag :min_price, params[:min_price],
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
-            placeholder: "Min price" %>
-      </div>
-      <div>
-        <%= label_tag :max_price, "Max Price", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= number_field_tag :max_price, params[:max_price],
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
-            placeholder: "Max price" %>
-      </div>
-      <div>
-        <%= label_tag :bedrooms, "Bedrooms", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= number_field_tag :bedrooms, params[:bedrooms],
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
-            placeholder: "Any" %>
-      </div>
-      <div>
-        <%= label_tag :bathrooms, "Bathrooms", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= number_field_tag :bathrooms, params[:bathrooms],
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline",
-            placeholder: "Any" %>
-      </div>
-      <div>
-        <%= label_tag :status, "Status", class: "block text-purple-700 text-sm font-bold mb-2" %>
-        <%= select_tag :status,
-            options_for_select([['All', ''], ['Available', 'available'], ['Sold', 'sold'], ['Pending', 'pending']], params[:status]),
-            class: "shadow appearance-none border rounded w-full py-2 px-3 text-purple-800 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-      <div class="flex items-end space-x-2 mt-6">
-        <%= submit_tag "Search", class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-        <%= link_to "Clear Filters", properties_path, class: "ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
 <!-- Divider -->
-<div class="max-w-4xl mx-auto my-8 border-t-2 border-blue-100"></div>
 
 <!-- Hero Banner -->
 <div class="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
@@ -168,27 +98,57 @@
 <div class="bg-gray-50 py-16">
   <div class="max-w-7xl mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12">Featured Properties</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <% @featured_properties&.each do |property| %>
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-          <% if property.images.attached? %>
-            <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
-          <% else %>
-            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
-                 alt="No image" class="w-full h-48 object-cover opacity-80" />
-          <% end %>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
-            <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
-            <p class="text-xl font-bold text-blue-600 mb-4">$<%= number_with_delimiter(property.price) %></p>
-            <%= link_to "View Details", property_path(property), class: "block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" %>
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <% @featured_properties&.each do |property| %>
+          <div class="swiper-slide">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl hover:bg-blue-50 cursor-pointer duration-300">
+              <% if property.images.attached? %>
+                <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+              <% else %>
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80"
+                     alt="No image" class="w-full h-48 object-cover opacity-80" />
+              <% end %>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
+                <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
+                <p class="text-xl font-bold text-blue-600 mb-4">$<%= number_with_delimiter(property.price) %></p>
+                <%= link_to "View Details", property_path(property), class: "block text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition" %>
+              </div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+      <!-- Swiper navigation removed for pure auto-scroll -->
+      <!-- <div class="swiper-button-next"></div> -->
+      <!-- <div class="swiper-button-prev"></div> -->
+      <!-- <div class="swiper-pagination"></div> -->
     </div>
     <div class="text-center mt-8">
       <%= link_to "View All Properties", properties_path, class: "inline-block bg-white text-blue-600 border-2 border-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition" %>
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    new Swiper('.mySwiper', {
+      loop: true,
+      slidesPerView: 3,
+      spaceBetween: 30,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false,
+      },
+      speed: 3500, // controls how fast it slides
+      grabCursor: true,
+      allowTouchMove: false, // disables manual swiping for pure auto-scroll
+      breakpoints: {
+        1024: { slidesPerView: 3 },
+        768: { slidesPerView: 2 },
+        0: { slidesPerView: 1 }
+      }
+    });
+  });
+</script>
 

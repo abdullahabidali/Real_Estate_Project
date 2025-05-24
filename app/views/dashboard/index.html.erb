@@ -1,0 +1,79 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Welcome Banner with Role -->
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-lg p-6 mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-white mb-2">Welcome, <%= current_user.name %>!</h1>
+          <p class="text-white text-lg">
+            You are registered as a 
+            <span class="font-bold bg-white/20 px-3 py-1 rounded-full">
+              <%= current_user.seller? ? 'Property Seller' : 'Property Buyer' %>
+            </span>
+          </p>
+        </div>
+        <div class="text-white">
+          <% if current_user.seller? %>
+            <i class="fas fa-home text-4xl"></i>
+          <% else %>
+            <i class="fas fa-search text-4xl"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role-specific Welcome Message -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <% if current_user.seller? %>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Getting Started as a Seller</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-green-50 p-4 rounded-lg">
+            <i class="fas fa-plus-circle text-green-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-green-800">Add Your First Property</h3>
+            <p class="text-green-600 text-sm">Start by listing your properties for sale</p>
+            <%= link_to "Add Property", new_property_path, class: "mt-2 inline-block text-green-600 hover:text-green-700" %>
+          </div>
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <i class="fas fa-envelope text-blue-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-blue-800">Manage Inquiries</h3>
+            <p class="text-blue-600 text-sm">Respond to potential buyers' questions</p>
+            <%= link_to "View Messages", messages_path, class: "mt-2 inline-block text-blue-600 hover:text-blue-700" %>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <i class="fas fa-chart-line text-purple-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-purple-800">Track Performance</h3>
+            <p class="text-purple-600 text-sm">Monitor your property listings and inquiries</p>
+            <%= link_to "View Analytics", "#", class: "mt-2 inline-block text-purple-600 hover:text-purple-700" %>
+          </div>
+        </div>
+      <% else %>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Getting Started as a Buyer</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <i class="fas fa-search text-blue-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-blue-800">Browse Properties</h3>
+            <p class="text-blue-600 text-sm">Find your dream property from our listings</p>
+            <%= link_to "View Properties", properties_path, class: "mt-2 inline-block text-blue-600 hover:text-blue-700" %>
+          </div>
+          <div class="bg-green-50 p-4 rounded-lg">
+            <i class="fas fa-heart text-green-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-green-800">Save Favorites</h3>
+            <p class="text-green-600 text-sm">Keep track of properties you like</p>
+            <%= link_to "View Favorites", favorites_path, class: "mt-2 inline-block text-green-600 hover:text-green-700" %>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <i class="fas fa-comments text-purple-500 text-2xl mb-2"></i>
+            <h3 class="font-semibold text-purple-800">Contact Sellers</h3>
+            <p class="text-purple-600 text-sm">Ask questions about properties you're interested in</p>
+            <%= link_to "View Messages", messages_path, class: "mt-2 inline-block text-purple-600 hover:text-purple-700" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Rest of the dashboard content -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <!-- ... existing dashboard content ... -->
+    </div>
+  </div>
+</div> 

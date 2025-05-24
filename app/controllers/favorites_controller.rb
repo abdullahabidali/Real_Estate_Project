@@ -1,5 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
+  authorize_resource
 
   def create
     @property = Property.find(params[:property_id])

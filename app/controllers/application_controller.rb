@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!, unless: :devise_controller?
-  check_authorization unless: :devise_controller?
+  check_authorization unless: :devise_controller? || controller_path.start_with?('admin/')
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -21,16 +21,19 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :phone, :role])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone])
   end
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || dashboard_path
+    dashboard_path
   end
 
   def authenticate_user!
-    return if devise_controller? || (controller_name == 'properties' && action_name == 'index')
+    return if devise_controller? || 
+              controller_name == 'home' || 
+              (controller_name == 'properties' && ['index', 'show'].include?(action_name)) ||
+              controller_path.start_with?('admin/')
     unless user_signed_in?
       store_location_for(:user, request.fullpath)
       redirect_to new_user_session_path, alert: "Please sign in to continue."

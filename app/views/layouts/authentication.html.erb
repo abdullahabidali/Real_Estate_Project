@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LevareEstates</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background: #fff;
+        padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+        box-shadow: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .navbar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-brand {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2257e7;
+        text-decoration: none;
+        letter-spacing: -1px;
+      }
+
+      .navbar-brand i {
+        color: #667eea;
+      }
+
+      .navbar-links {
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+      }
+
+      .nav-pill {
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(34, 87, 231, 0.06);
+        border: none;
+        outline: none;
+      }
+
+      .nav-pill.nav-home, .nav-pill.nav-properties {
+        background: #f5f8fd;
+        color: #2257e7;
+        border: 2px solid transparent;
+      }
+
+      .nav-pill.nav-home:hover, .nav-pill.nav-properties:hover {
+        text-decoration: underline;
+        background: #eaf1ff;
+      }
+
+      .nav-pill.nav-signin {
+        background: #3880ec;
+        color: #fff;
+        margin-left: 0.5rem;
+      }
+
+      .nav-pill.nav-signin:hover {
+        background: #2257e7;
+      }
+
+      .nav-pill.nav-signup {
+        background: #a259e6;
+        color: #fff;
+        margin-left: 0.2rem;
+      }
+
+      .nav-pill.nav-signup:hover {
+        background: #764ba2;
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        margin-top: 5.5rem;
+      }
+
+      .auth-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 480px;
+        margin: 2rem auto;
+      }
+
+      .auth-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .auth-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-subtitle {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #4a5568;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        outline: none;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+      }
+
+      .auth-links {
+        margin-top: 1.5rem;
+        text-align: center;
+      }
+
+      .auth-links a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .auth-links a:hover {
+        color: #764ba2;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .remember-me input[type="checkbox"] {
+        margin-right: 0.5rem;
+      }
+
+      .error-messages {
+        background-color: #fff5f5;
+        border: 1px solid #feb2b2;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #c53030;
+      }
+
+      .flash-messages {
+        margin-bottom: 1.5rem;
+      }
+
+      .flash-message {
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+      }
+
+      .flash-message.notice {
+        background-color: #f0fff4;
+        border: 1px solid #9ae6b4;
+        color: #2f855a;
+      }
+
+      .flash-message.alert {
+        background-color: #fff5f5;
+        border: 1px solid #feb2b2;
+        color: #c53030;
+      }
+
+      @media (max-width: 640px) {
+        .navbar {
+          padding: 1rem;
+        }
+        
+        .navbar-brand {
+          font-size: 1.25rem;
+        }
+
+        .navbar-links {
+          gap: 0.5rem;
+        }
+
+        .auth-container {
+          margin: 1rem;
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        LevareEstates
+      <% end %>
+      <div class="navbar-links">
+        <%= link_to "Home", root_path, class: "nav-pill nav-home" %>
+        <%= link_to "Properties", properties_path, class: "nav-pill nav-properties" %>
+        <% if user_signed_in? %>
+          <%= link_to "Dashboard", dashboard_path, class: "nav-pill nav-home" %>
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-pill nav-signin", form: {style: 'display:inline'} %>
+        <% else %>
+          <%= link_to "Sign In", new_user_session_path, class: "nav-pill nav-signin" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "nav-pill nav-signup" %>
+        <% end %>
+      </div>
+    </nav>
+
+    <div class="main-content">
+      <div class="auth-container">
+        <%= yield :auth_header %>
+        
+        <% if flash[:notice] %>
+          <div class="flash-message notice">
+            <%= flash[:notice] %>
+          </div>
+        <% end %>
+        
+        <% if flash[:alert] %>
+          <div class="flash-message alert">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+
+        <%= yield %>
+
+        <%= yield :auth_footer %>
+      </div>
+    </div>
+  </body>
+</html> 

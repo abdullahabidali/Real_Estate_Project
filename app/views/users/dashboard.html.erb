@@ -1,55 +1,179 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-6">My Dashboard</h1>
-
-  <div class="mb-10">
-    <h2 class="text-2xl font-semibold mb-4">My Properties</h2>
-    <% if @my_properties.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @my_properties.each do |property| %>
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <% if property.images.attached? %>
-              <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
-            <% else %>
-              <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                <span class="text-gray-400">No image available</span>
-              </div>
-            <% end %>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
-              <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
-              <%= link_to "View", property_path(property), class: "text-blue-500 hover:underline" %>
+<div class="min-h-screen bg-gray-100">
+  <div class="py-10">
+    <header>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">Welcome, <%= @user.name %></h1>
+      </div>
+    </header>
+    <main>
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <!-- Account Information -->
+        <div class="mt-8 bg-white overflow-hidden shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Account Information</h3>
+            <div class="mt-2 max-w-xl text-sm text-gray-500">
+              <p>You are currently a <span class="font-bold"><%= current_user.role.capitalize %></span>.</p>
+            </div>
+            <div class="mt-5">
+              <% if current_user.buyer? %>
+                <%= form_with url: change_role_path, method: :post, class: "space-y-4" do |f| %>
+                  <%= f.hidden_field :role, value: 'seller' %>
+                  <%= f.submit "Become a Seller", class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+                <% end %>
+              <% elsif current_user.seller? %>
+                <%= form_with url: change_role_path, method: :post, class: "space-y-4" do |f| %>
+                  <%= f.hidden_field :role, value: 'buyer' %>
+                  <%= f.submit "Become a Buyer", class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+                <% end %>
+              <% end %>
             </div>
           </div>
-        <% end %>
-      </div>
-    <% else %>
-      <p>You have not listed any properties yet.</p>
-    <% end %>
-  </div>
+        </div>
 
-  <div>
-    <h2 class="text-2xl font-semibold mb-4">My Favorites</h2>
-    <% if @favorite_properties.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <% @favorite_properties.each do |property| %>
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <% if property.images.attached? %>
-              <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
-            <% else %>
-              <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-                <span class="text-gray-400">No image available</span>
+        <!-- User Stats -->
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-home text-2xl text-blue-500"></i>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">My Properties</dt>
+                    <dd class="text-lg font-medium text-gray-900"><%= @properties.count %></dd>
+                  </dl>
+                </div>
               </div>
-            <% end %>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold mb-2"><%= property.title %></h3>
-              <p class="text-gray-600 mb-2"><%= property.city %>, <%= property.state %></p>
-              <%= link_to "View", property_path(property), class: "text-blue-500 hover:underline" %>
             </div>
           </div>
-        <% end %>
+
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-heart text-2xl text-pink-500"></i>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">Favorites</dt>
+                    <dd class="text-lg font-medium text-gray-900"><%= @favorite_properties.count %></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <i class="fas fa-envelope text-2xl text-green-500"></i>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">Messages</dt>
+                    <dd class="text-lg font-medium text-gray-900"><%= @recent_messages.count %></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Properties Section -->
+        <div class="mt-8">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-semibold text-gray-900">My Properties</h2>
+            <%= link_to 'Add New Property', new_property_path, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+          </div>
+          
+          <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <% @properties.each do |property| %>
+              <div class="bg-white overflow-hidden shadow rounded-lg">
+                <% if property.images.attached? %>
+                  <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+                <% else %>
+                  <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-home text-4xl text-gray-400"></i>
+                  </div>
+                <% end %>
+                <div class="p-4">
+                  <h3 class="text-lg font-medium text-gray-900"><%= property.title %></h3>
+                  <p class="mt-1 text-sm text-gray-500"><%= property.address %></p>
+                  <p class="mt-2 text-lg font-semibold text-blue-600">$<%= number_with_delimiter(property.price) %></p>
+                  <div class="mt-4 flex justify-between">
+                    <%= link_to 'View', property_path(property), class: 'text-blue-600 hover:text-blue-900' %>
+                    <%= link_to 'Edit', edit_property_path(property), class: 'text-gray-600 hover:text-gray-900' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Favorite Properties Section -->
+        <div class="mt-8">
+          <h2 class="text-2xl font-semibold text-gray-900">Favorite Properties</h2>
+          <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <% @favorite_properties.each do |property| %>
+              <div class="bg-white overflow-hidden shadow rounded-lg">
+                <% if property.images.attached? %>
+                  <%= image_tag property.images.first, class: "w-full h-48 object-cover" %>
+                <% else %>
+                  <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-home text-4xl text-gray-400"></i>
+                  </div>
+                <% end %>
+                <div class="p-4">
+                  <h3 class="text-lg font-medium text-gray-900"><%= property.title %></h3>
+                  <p class="mt-1 text-sm text-gray-500"><%= property.address %></p>
+                  <p class="mt-2 text-lg font-semibold text-blue-600">$<%= number_with_delimiter(property.price) %></p>
+                  <div class="mt-4">
+                    <%= link_to 'View Details', property_path(property), class: 'text-blue-600 hover:text-blue-900' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Recent Messages Section -->
+        <div class="mt-8 mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900">Recent Messages</h2>
+          <div class="mt-4">
+            <% if @recent_messages.any? %>
+              <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                <ul role="list" class="divide-y divide-gray-200">
+                  <% @recent_messages.each do |message| %>
+                    <li>
+                      <div class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                          <p class="text-sm font-medium text-blue-600 truncate">
+                            From: <%= message.user.name %> about <%= message.property.title %>
+                          </p>
+                          <div class="ml-2 flex-shrink-0 flex">
+                            <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              <%= time_ago_in_words(message.created_at) %> ago
+                            </p>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <p class="text-sm text-gray-600 line-clamp-2">
+                            <%= message.content %>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% else %>
+              <p class="text-gray-500">No recent messages</p>
+            <% end %>
+          </div>
+        </div>
       </div>
-    <% else %>
-      <p>You have not favorited any properties yet.</p>
-    <% end %>
+    </main>
   </div>
 </div> 

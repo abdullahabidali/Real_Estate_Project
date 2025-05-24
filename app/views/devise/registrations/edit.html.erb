@@ -31,6 +31,32 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.telephone_field :phone, autocomplete: "phone" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role, "Change Account Type" %><br />
+    <div class="mt-2 space-y-2">
+      <div class="flex items-center">
+        <%= f.radio_button :role, 'buyer', class: "h-4 w-4 text-blue-600" %>
+        <%= f.label :role_buyer, "Property Buyer", class: "ml-2 block text-sm text-gray-700" %>
+      </div>
+      <div class="flex items-center">
+        <%= f.radio_button :role, 'seller', class: "h-4 w-4 text-blue-600" %>
+        <%= f.label :role_seller, "Property Seller", class: "ml-2 block text-sm text-gray-700" %>
+      </div>
+    </div>
+    <p class="mt-1 text-sm text-gray-500">
+      <% if current_user.seller? %>
+        Note: Changing to buyer account will hide your property listings from other users.
+      <% else %>
+        Note: Changing to seller account will allow you to list properties for sale.
+      <% end %>
+    </p>
+  </div>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>

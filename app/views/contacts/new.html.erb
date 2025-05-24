@@ -1,0 +1,23 @@
+<div class="max-w-lg mx-auto mt-16 p-8 bg-white rounded-2xl shadow-lg">
+  <h1 class="text-3xl font-bold mb-6 text-purple-700">Contact Us</h1>
+  <% if flash[:notice] %>
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded"> <%= flash[:notice] %> </div>
+  <% end %>
+  <%= form_with url: contact_path, method: :post, local: true, class: "space-y-4" do %>
+    <div>
+      <%= label_tag :name, "Your Name", class: "block text-sm font-bold text-purple-700 mb-1" %>
+      <%= text_field_tag :name, nil, required: true, class: "w-full border rounded px-3 py-2" %>
+    </div>
+    <div>
+      <%= label_tag :email, "Your Email", class: "block text-sm font-bold text-purple-700 mb-1" %>
+      <%= email_field_tag :email, nil, required: true, class: "w-full border rounded px-3 py-2" %>
+    </div>
+    <div>
+      <%= label_tag :message, "Message", class: "block text-sm font-bold text-purple-700 mb-1" %>
+      <%= text_area_tag :message, nil, required: true, rows: 5, class: "w-full border rounded px-3 py-2" %>
+    </div>
+    <div>
+      <%= submit_tag "Send Message", class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow transition" %>
+    </div>
+  <% end %>
+</div> 

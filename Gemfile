@@ -47,10 +47,24 @@ gem "omniauth"
 gem "omniauth-google-oauth2"
 gem "omniauth-github"
 gem "omniauth-rails_csrf_protection"
+gem "rolify"
+gem "dotenv-rails"
 
 # Add ActiveAdmin and its dependencies for the admin panel
 gem "cancancan"
 gem "sassc-rails"
+
+# Add valid_email2 for stricter email and disposable email validation
+gem 'valid_email2'
+
+# Pagination
+gem 'kaminari'
+
+# Ratings
+gem 'ratyrate'
+
+# Maps
+gem 'geocoder'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
